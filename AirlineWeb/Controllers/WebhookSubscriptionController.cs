@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AirlineWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class WebhookSubscriptionController : ControllerBase
+    public class WebhookSubscriptionController : Controller
     {
         private readonly AirlineDbContext _context;
         public WebhookSubscriptionController(AirlineDbContext context)
