@@ -21,7 +21,7 @@ namespace AirlineWeb.Controllers
         [HttpGet("{secret}", Name = nameof(GetSubscriptionBySecret))]
         public ActionResult<WebhookSubscriptionReadDto> GetSubscriptionBySecret(string secret)
         {
-            var subscription = _context.WebhookSubscriptions.FirstOrDefault(s => s.Secret == secret);
+            var subscription = _context.WebhookSubscriptions.FirstOrDefault(s => s.Secret.ToLower() == secret.ToLower());
             if (subscription is null)
             {
                 return NotFound();
@@ -29,7 +29,7 @@ namespace AirlineWeb.Controllers
             else
             {
                 var result = _mapper.Map<WebhookSubscriptionReadDto>(subscription);
-                
+
                 return Ok(result);
             }
 
@@ -38,7 +38,7 @@ namespace AirlineWeb.Controllers
         [HttpPost]
         public ActionResult<WebhookSubscriptionReadDto> CreateSubscription(WebhookSubscriptionCreateDto webhookSubscriptionCreateDto)
         {
-            var subscription = _context.WebhookSubscriptions.FirstOrDefault(s => s.WebhookURI == webhookSubscriptionCreateDto.WebhookURI);
+            var subscription = _context.WebhookSubscriptions.FirstOrDefault(s => s.WebhookURI.ToLower() == webhookSubscriptionCreateDto.WebhookURI.ToLower());
             if (subscription is null)
             {
                 subscription = _mapper.Map<WebhookSubscription>(webhookSubscriptionCreateDto);
@@ -52,15 +52,15 @@ namespace AirlineWeb.Controllers
                 }
                 catch (Exception ex)
                 {
-                    
+
                     return BadRequest(ex.Message);
                 }
 
                 var webhookSubscriptionReadDto = _mapper.Map<WebhookSubscriptionReadDto>(subscription);
 
-                return CreatedAtRoute(nameof(GetSubscriptionBySecret), new  {secret = webhookSubscriptionReadDto.Secret}, webhookSubscriptionReadDto);
+                return CreatedAtRoute(nameof(GetSubscriptionBySecret), new { secret = webhookSubscriptionReadDto.Secret }, webhookSubscriptionReadDto);
             }
-            else 
+            else
             {
                 return NoContent();
             }

@@ -1,13 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AirlineWeb.Models
+namespace AirlineWeb.Dtos
 {
-    public class FlightDetail
+    public class FlightDetailUpdateDto
     {
-        [Key]
-        [Required]
-        public int Id { get; set; }
-        
         [Required]
         public string FlightCode { get; set; }
         
