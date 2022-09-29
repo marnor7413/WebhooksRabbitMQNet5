@@ -9,6 +9,6 @@ namespace AirlineWeb.Data
         {
         }
 
-        DbSet<WebhookSubscription> WebhookSubscriptions {get; set;}
+        public DbSet<WebhookSubscription> WebhookSubscriptions {get; set;}
     }
 }
