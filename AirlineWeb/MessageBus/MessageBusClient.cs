@@ -18,7 +18,7 @@ namespace AirlineWeb.MessageBus
             {
                 using (var channel = connecection.CreateModel())
                 {
-                    channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
+                    channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout, durable: false);
 
                     // create body of message
                     var message = JsonSerializer.Serialize(notificationMessageDto);
